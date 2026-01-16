@@ -118,5 +118,5 @@ dist
 .pnp.*
 
 .png
-
+public/temp/*
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Node
