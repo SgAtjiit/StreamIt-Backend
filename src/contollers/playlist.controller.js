@@ -48,7 +48,7 @@ const getUserPlaylists = asyncHandler(async (req, res) => {
     },
   ]);
   // console.log(playlists)
-  if (playlists.length==0) {
+  if (playlists.length == 0) {
     throw new ApiError(401, "No playlist found");
   }
 
@@ -153,8 +153,8 @@ const deletePlaylist = asyncHandler(async (req, res) => {
   }
   // TODO: delete playlist
   const deleted = await Playlist.findByIdAndDelete(playlistId);
-  if(!deleted){
-    throw new ApiError(401,"Error while deleting playlist ")
+  if (!deleted) {
+    throw new ApiError(401, "Error while deleting playlist ");
   }
   return res
     .status(200)
@@ -184,7 +184,7 @@ const updatePlaylist = asyncHandler(async (req, res) => {
     }
   );
 
-  if (playlist.length==0) {
+  if (playlist.length == 0) {
     throw new ApiError("Error while updating playlist data");
   }
   return res
