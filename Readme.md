@@ -1,4 +1,4 @@
-# 🎬 StreamIt Backend API
+# 🎬 StreamIt - Video Sharing Platform Backend API
 
 [![Node.js](https://img.shields.io/badge/Node.js-v20%2B-green?logo=node.js)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express-v5.0-blue?logo=express)](https://expressjs.com/)
@@ -6,7 +6,7 @@
 [![Swagger](https://img.shields.io/badge/Swagger-OpenAPI%203.0-brightgreen?logo=swagger)](http://localhost:8000/api-docs)
 [![Postman](https://img.shields.io/badge/Postman-v2.1.0-orange?logo=postman)](https://www.postman.com/)
 
-A production-ready, feature-rich video streaming platform backend API built with **Node.js**, **Express v5**, **MongoDB (Mongoose)**, **JWT Authentication**, and **Cloudinary/Local Media Storage**. Designed to replicate core YouTube infrastructure with enterprise-level security, high-performance aggregation pipelines, and comprehensive documentation.
+A production-ready, feature-rich video sharing and community platform backend API built with **Node.js**, **Express v5**, **MongoDB (Mongoose)**, **JWT Authentication**, and **Cloudinary/Local Media Storage**. Designed to replicate core YouTube channel and video management infrastructure with enterprise-level security, high-performance MongoDB aggregation pipelines, and comprehensive documentation.
 
 ---
 
