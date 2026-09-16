@@ -139,4 +139,10 @@ public/videos/*
 public/thumbnail/*
 !public/thumbnail/.gitkeep
 public/thumbnails/*
-!public/thumbnails/.gitkeep
+!public/thumbnails/.gitkeep
+
+# Interview revision notes
+questions.md
+interview/
+
+
