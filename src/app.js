@@ -1,23 +1,29 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import fs from "fs"
+import path from "path"
 
 const app = express()
-// app.use(cors({
-//     origin:process.env.CORS_ORIGIN,
-//     credentials:true
-// }))
+
+// Ensure public/temp directory exists for Multer uploads on Render
+const tempDir = path.resolve(process.cwd(), "public/temp");
+if (!fs.existsSync(tempDir)) {
+  fs.mkdirSync(tempDir, { recursive: true });
+}
+
+// Dynamic CORS configuration reading process.env.CORS_ORIGIN
+const corsOrigin = process.env.CORS_ORIGIN || "http://localhost:5173";
+
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: corsOrigin === "*" ? true : corsOrigin,
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
-// app.options("*", cors());
-
-app.use(express.json({limit: "50mb"}))
-app.use(express.urlencoded({extended:true,limit:"50mb"}))
+app.use(express.json({ limit: "50mb" }))
+app.use(express.urlencoded({ extended: true, limit: "50mb" }))
 app.use(express.static("public"))
 app.use(cookieParser())
 
@@ -49,7 +55,7 @@ import likeRouter from "./routes/like.routes.js"
 import playlistRouter from "./routes/playlist.routes.js"
 import dashboardRouter from "./routes/dashboard.routes.js"
 //routes declaration
-app.use("/api/v1/users",userRouter)
+app.use("/api/v1/users", userRouter)
 app.use("/api/v1/healthcheck", healthcheckRouter)
 app.use("/api/v1/tweets", tweetRouter)
 app.use("/api/v1/subscriptions", subscriptionRouter)
@@ -58,4 +64,4 @@ app.use("/api/v1/comments", commentRouter)
 app.use("/api/v1/likes", likeRouter)
 app.use("/api/v1/playlists", playlistRouter)
 app.use("/api/v1/dashboard", dashboardRouter)
-export {app}
+export { app }
