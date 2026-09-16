@@ -117,6 +117,26 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-.png
+# Media files & images
+*.mp4
+*.webm
+*.mkv
+*.mov
+*.avi
+*.flv
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.svg
+
+# Public upload & media directories (keep directory structure with .gitkeep)
 public/temp/*
-# End of https://mrkandreev.name/snippets/gitignore-generator/#Node
+!public/temp/.gitkeep
+public/videos/*
+!public/videos/.gitkeep
+public/thumbnail/*
+!public/thumbnail/.gitkeep
+public/thumbnails/*
+!public/thumbnails/.gitkeep

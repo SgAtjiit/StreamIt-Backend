@@ -185,7 +185,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
   const incomingRefreshToken =
-    req.cookies.refreshToken || req.body.refreshToken;
+    req.cookies?.refreshToken || req.body?.refreshToken;
 
   if (!incomingRefreshToken) {
     throw new ApiError(401, "unauthorized request");
@@ -211,7 +211,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
       secure: true,
     };
 
-    const { newRefreshToken, accessToken } = await generaAccessAndRefreshTokens(
+    const { refreshToken: newRefreshToken, accessToken } = await generaAccessAndRefreshTokens(
       user._id
     );
 
@@ -381,8 +381,11 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
         subscibersCount: {
           $size: "$subscribers",
         },
+        subscribersCount: {
+          $size: "$subscribers",
+        },
         channelsSubscribedToCount: {
-          $size: "subscribedChannels",
+          $size: "$subscribedChannels",
         },
         isSubscribed: {
           $cond: {
@@ -397,7 +400,8 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
       $project: {
         fullName: 1,
         username: 1,
-        subscibersCount,
+        subscibersCount: 1,
+        subscribersCount: 1,
         channelsSubscribedToCount: 1,
         isSubscribed: 1,
         avatar: 1,

@@ -33,24 +33,18 @@ const createPlaylist = asyncHandler(async (req, res) => {
 
 const getUserPlaylists = asyncHandler(async (req, res) => {
   const { userId } = req.params;
-  //TODO: get user playlists
-  if (!userId) {
-    throw new ApiError(400, "User Id is required");
+  if (!userId || !isValidObjectId(userId)) {
+    throw new ApiError(400, "Valid User Id is required");
   }
   const user = await User.findById(userId);
   if (!user) {
-    throw new ApiError("User not found");
+    throw new ApiError(404, "User not found");
   }
   const playlists = await Playlist.aggregate([
     {
       $match: { owner: user._id },
-      //this bug actually irritated me as i need to match with user._id instead of userId
     },
   ]);
-  // console.log(playlists)
-  if (playlists.length == 0) {
-    throw new ApiError(401, "No playlist found");
-  }
 
   return res
     .status(200)
@@ -65,13 +59,12 @@ const getUserPlaylists = asyncHandler(async (req, res) => {
 
 const getPlaylistById = asyncHandler(async (req, res) => {
   const { playlistId } = req.params;
-  if (!playlistId) {
-    throw new ApiError("Playlist Id is required");
+  if (!playlistId || !isValidObjectId(playlistId)) {
+    throw new ApiError(400, "Valid Playlist Id is required");
   }
-  //TODO: get playlist by id
   const playlist = await Playlist.findById(playlistId);
   if (!playlist) {
-    throw new ApiError("Playlist not Found");
+    throw new ApiError(404, "Playlist not Found");
   }
   return res
     .status(200)
@@ -80,25 +73,23 @@ const getPlaylistById = asyncHandler(async (req, res) => {
 
 const addVideoToPlaylist = asyncHandler(async (req, res) => {
   const { playlistId, videoId } = req.params;
-  if (!playlistId || !videoId) {
+  if (!playlistId || !videoId || !isValidObjectId(playlistId) || !isValidObjectId(videoId)) {
     throw new ApiError(
-      401,
-      "Playlist Id and Video Id are required for the operation"
+      400,
+      "Valid Playlist Id and Video Id are required for the operation"
     );
   }
   const video = await Video.findById(videoId);
   if (!video) {
-    throw new ApiError(401, "Video not found");
+    throw new ApiError(404, "Video not found");
   }
   const playlist = await Playlist.findById(playlistId);
   if (!playlist) {
-    throw new ApiError(401, "Playlist Not Found");
+    throw new ApiError(404, "Playlist Not Found");
   }
   const finalPlaylist = await Playlist.findByIdAndUpdate(
     playlist._id,
-    // { $push: { videos: video._id } },
     { $addToSet: { videos: video._id } },
-    //to ensure one video only one time in a playlist
     { new: true }
   );
   return res
@@ -114,20 +105,19 @@ const addVideoToPlaylist = asyncHandler(async (req, res) => {
 
 const removeVideoFromPlaylist = asyncHandler(async (req, res) => {
   const { playlistId, videoId } = req.params;
-  // TODO: remove video from playlist
-  if (!playlistId || !videoId) {
+  if (!playlistId || !videoId || !isValidObjectId(playlistId) || !isValidObjectId(videoId)) {
     throw new ApiError(
-      401,
-      "Playlist Id and Video Id are required for the operation"
+      400,
+      "Valid Playlist Id and Video Id are required for the operation"
     );
   }
   const video = await Video.findById(videoId);
   if (!video) {
-    throw new ApiError(401, "Video not found");
+    throw new ApiError(404, "Video not found");
   }
   const playlist = await Playlist.findById(playlistId);
   if (!playlist) {
-    throw new ApiError(401, "Playlist Not Found");
+    throw new ApiError(404, "Playlist Not Found");
   }
   const finalPlaylist = await Playlist.findByIdAndUpdate(
     playlist._id,
@@ -148,13 +138,12 @@ const removeVideoFromPlaylist = asyncHandler(async (req, res) => {
 
 const deletePlaylist = asyncHandler(async (req, res) => {
   const { playlistId } = req.params;
-  if (!playlistId) {
-    throw new ApiError(401, "Playlist Id is required");
+  if (!playlistId || !isValidObjectId(playlistId)) {
+    throw new ApiError(400, "Valid Playlist Id is required");
   }
-  // TODO: delete playlist
   const deleted = await Playlist.findByIdAndDelete(playlistId);
   if (!deleted) {
-    throw new ApiError(401, "Error while deleting playlist ");
+    throw new ApiError(404, "Playlist not found");
   }
   return res
     .status(200)
@@ -164,12 +153,11 @@ const deletePlaylist = asyncHandler(async (req, res) => {
 const updatePlaylist = asyncHandler(async (req, res) => {
   const { playlistId } = req.params;
   const { name, description } = req.body;
-  //TODO: update playlist
-  if (!playlistId) {
-    throw new ApiError(401, "Playlist Id is required");
+  if (!playlistId || !isValidObjectId(playlistId)) {
+    throw new ApiError(400, "Valid Playlist Id is required");
   }
-  if (!name || !description) {
-    throw new ApiError(401, "No details to update Found");
+  if (!name && !description) {
+    throw new ApiError(400, "No details to update Found");
   }
   let update = {};
   if (name) update.name = name;
@@ -184,8 +172,8 @@ const updatePlaylist = asyncHandler(async (req, res) => {
     }
   );
 
-  if (playlist.length == 0) {
-    throw new ApiError("Error while updating playlist data");
+  if (!playlist) {
+    throw new ApiError(404, "Error while updating playlist data - playlist not found");
   }
   return res
     .status(200)

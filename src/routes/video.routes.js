@@ -6,7 +6,7 @@ import {
   publishAVideo,
   togglePublishStatus,
   updateVideo,
-} from "../contollers/video.controller.js";
+} from "../controllers/video.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
 

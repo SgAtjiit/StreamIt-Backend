@@ -21,6 +21,22 @@ app.use(express.urlencoded({extended:true,limit:"50mb"}))
 app.use(express.static("public"))
 app.use(cookieParser())
 
+import swaggerUi from "swagger-ui-express";
+import { swaggerDocument } from "./swagger.js";
+
+const swaggerUiOptions = {
+  customSiteTitle: "StreamIt API Documentation",
+  swaggerOptions: {
+    persistAuthorization: true,
+    displayRequestDuration: true,
+    docExpansion: "list",
+    defaultModelsExpandDepth: 1,
+  }
+};
+
+// Swagger UI Route with Native Light Theme & Persistent Auth
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerUiOptions));
+
 //routes import 
 
 import userRouter from "./routes/user.routes.js"
