@@ -1,10 +1,13 @@
 # 🎬 StreamIt - Video Sharing Platform Backend API
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Swagger%20UI-brightgreen?style=for-the-badge&logo=render)](https://streamit-backend-zzwx.onrender.com/api-docs/)
 [![Node.js](https://img.shields.io/badge/Node.js-v20%2B-green?logo=node.js)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express-v5.0-blue?logo=express)](https://expressjs.com/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas%20%2F%20Local-green?logo=mongodb)](https://www.mongodb.com/)
-[![Swagger](https://img.shields.io/badge/Swagger-OpenAPI%203.0-brightgreen?logo=swagger)](http://localhost:8000/api-docs)
+[![Swagger](https://img.shields.io/badge/Swagger-OpenAPI%203.0-brightgreen?logo=swagger)](https://streamit-backend-zzwx.onrender.com/api-docs/)
 [![Postman](https://img.shields.io/badge/Postman-v2.1.0-orange?logo=postman)](https://www.postman.com/)
+
+🚀 **Live Interactive API Documentation**: [https://streamit-backend-zzwx.onrender.com/api-docs/](https://streamit-backend-zzwx.onrender.com/api-docs/)
 
 A production-ready, feature-rich video sharing and community platform backend API built with **Node.js**, **Express v5**, **MongoDB (Mongoose)**, **JWT Authentication**, and **Cloudinary/Local Media Storage**. Designed to replicate core YouTube channel and video management infrastructure with enterprise-level security, high-performance MongoDB aggregation pipelines, and comprehensive documentation.
 
@@ -91,11 +94,10 @@ The server starts at `http://localhost:8000` with hot-reloading via Nodemon.
 
 ## 📚 Interactive Swagger API Documentation
 
-StreamIt Backend includes live, interactive OpenAPI 3.0 documentation powered by Swagger UI.
-
-- **Access URL**: `http://localhost:8000/api-docs`
+- **🌐 Live Production URL**: [https://streamit-backend-zzwx.onrender.com/api-docs/](https://streamit-backend-zzwx.onrender.com/api-docs/)
+- **💻 Local Development URL**: `http://localhost:8000/api-docs`
 - **Features**:
-  - Test all 37+ API endpoints directly in your browser.
+  - Test all 37+ API endpoints live directly in your browser.
   - **Persistent Authorization**: Click **Authorize** at the top, enter `Bearer <your_access_token>`, and all subsequent requests automatically include your JWT token.
   - Pre-filled sample MongoDB ObjectIDs for immediate testing.
 
